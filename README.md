@@ -21,7 +21,7 @@ https://drive.google.com/file/d/1FY-TQfmuadkNOFuSsg1CbuB-kJ2I8612/view?usp=share
 
 In this dataset, there are a total of 10,000 npy data stored. Each npy file has a size of 5X192X192, in the order of fluid region, x-velocity, y-velocity, pressure, and corner vortex region.
 
-
+![data_sample](./images/data.png)
 ## Training
 
 ## Test
