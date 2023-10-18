@@ -15,6 +15,11 @@ Deep learning (DL) methods have become the trend in predicting feasible solution
 - ### Please install dependencies by
 
 ## Dataset
+A dataset for this project can be downloaded using the following URL:
+https://drive.google.com/file/d/1FY-TQfmuadkNOFuSsg1CbuB-kJ2I8612/view?usp=share_link
+
+In this dataset, there are a total of 10,000 npy data stored. Each npy file has a size of 5X192X192, in the order of fluid region, x-velocity, y-velocity, pressure, and corner vortex region.
+
 
 ## Training
 
