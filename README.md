@@ -8,13 +8,14 @@ Deep learning (DL) methods have become the trend in predicting feasible solution
 ## Prerequisites
 - Python 3.11.3
 - PyTorch>=2.0.0
-- Torchvision>=0.15.1
+- Torchvision>=0.15.1Z:\paper\Final_UNET_LSTM\models\architecture.py
 - NVIDIA GPU + CUDA cuDNN
 
 - - ### Install PyTorch and dependencies from http://pytorch.org
 - ### Please install dependencies by
 
 ## Dataset
+
 A dataset for this project can be downloaded using the following URL:
 
 https://drive.google.com/file/d/1FY-TQfmuadkNOFuSsg1CbuB-kJ2I8612/view?usp=share_link
@@ -22,6 +23,39 @@ https://drive.google.com/file/d/1FY-TQfmuadkNOFuSsg1CbuB-kJ2I8612/view?usp=share
 In this dataset, there are a total of 10,000 npy data stored. Each npy file has a size of 5X192X192, in the order of fluid region, x-velocity, y-velocity, pressure, and corner vortex region.
 
 ![data_sample](./images/data.png)
-## Training
+
+To use the uploaded dataset in the codes, it should be allocated to the train, test, and valid folders with the desired ratio.
+
+## Preprocessing
+
+
+
+## Codes
+
+The structure of the attached code is based on U-Net with SBLSTM, which showed the best performance in the paper.
+
+![SBLSTM-UNET](./images/SBLSTM-UNET.png)
+
+Code modification is necessary to avoid using the SB-LSTM module or to omit skip connections.
+
+## Train
+
+```
+Usage:  python3 -m deepcfd [OPTIONS]
+
+Options:
+    -d, --device        TEXT  device: 'cpu', 'cuda', 'cuda:0', 'cuda:0,cuda:1' (default: cuda if available)
+    -n, --net           TEXT  network architecture: UNetEx or AutoEncoder (default: UNetEx)
+    -mi, --mmodel-input PATH  input dataset with sdf1,flow-region and sdf2 fields (default: dataX.pkl)
+    -mo, --model-output PATH  output dataset with Ux,Uy and p (default: dataY.pkl)
+    -o, --output        PATH  model output (default: mymodel.pt)
+    -k, --kernel-size   INT   kernel size (default: 5)
+    -f, --filters       TEXT  filter size (default: 8,16,32,32)
+    -l, --learning-rate FLOAT learning rage (default: 0.001)
+    -e, --epochs        INT   number of epochs (default: 1000)
+    -b, --batch-size    INT   training batch size (default: 32)
+    -p, --patience      INT   number of epochs for early stopping (default: 300)
+    -v, --visualize           flag for visualizing ground-truth vs prediction plots (default: False)
+```
 
 ## Test
