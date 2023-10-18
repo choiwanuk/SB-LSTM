@@ -14,7 +14,7 @@ Deep learning (DL) methods have become the trend in predicting feasible solution
 - - ### Install PyTorch and dependencies from http://pytorch.org
 - ### Please install dependencies by
 
-- ## Dataset
+## Dataset
 
 ## Training
 
