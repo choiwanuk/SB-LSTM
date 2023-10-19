@@ -24,38 +24,33 @@ In this dataset, there are a total of 10,000 npy data stored. Each npy file has 
 
 ![data_sample](./images/data.png)
 
-To use the uploaded dataset in the codes, it should be allocated to the train, test, and valid folders with the desired ratio.
+To use the uploaded dataset in the codes, it should be allocated to the train, test, and valid folders in dataset directory with the desired ratio.
 
 ## Preprocessing
 
-
-
+After preparing the dataset, the mean value of the data_process/CFDdataset.py file needs to be modified according to the dataset for channel normalization performed as a preprocessing for effective learning. Note that in the code, the default normalization values for x, y velocity, and pressure are all set to 1.
+```python
+    def transforms(self, data) :
+        # Slice Input Data
+        input = data[0, :, :]
+        # Slice Target Data
+        target = data[1:4, :, :]
+        # Convert Input and Target Data to PyTorch Tensor
+        input = torch.FloatTensor(input).unsqueeze(0)
+        target = torch.FloatTensor(target)
+        # Convert Target Statistic Data to PyTorch Tensor
+        mean = torch.FloatTensor([1, 1, 1]).unsqueeze(-1).unsqueeze(-1)
+        return input, target, mean
+        
+```
 ## Codes
 
-The structure of the attached code is based on U-Net with SBLSTM, which showed the best performance in the paper.
-
+The structure of the attached code is based on U-Net with SBLSTM, which showed the best performance in the paper. The UNet-with-SBLSTM is designed as shown in the diagram below.
 ![SBLSTM-UNET](./images/SBLSTM-UNET.png)
 
-Code modification is necessary to avoid using the SB-LSTM module or to omit skip connections.
+Code modification is necessary to omit the SB-LSTM module or skip connections.
 
 ## Train
 
-```
-Usage:  python3 -m deepcfd [OPTIONS]
-
-Options:
-    -d, --device        TEXT  device: 'cpu', 'cuda', 'cuda:0', 'cuda:0,cuda:1' (default: cuda if available)
-    -n, --net           TEXT  network architecture: UNetEx or AutoEncoder (default: UNetEx)
-    -mi, --mmodel-input PATH  input dataset with sdf1,flow-region and sdf2 fields (default: dataX.pkl)
-    -mo, --model-output PATH  output dataset with Ux,Uy and p (default: dataY.pkl)
-    -o, --output        PATH  model output (default: mymodel.pt)
-    -k, --kernel-size   INT   kernel size (default: 5)
-    -f, --filters       TEXT  filter size (default: 8,16,32,32)
-    -l, --learning-rate FLOAT learning rage (default: 0.001)
-    -e, --epochs        INT   number of epochs (default: 1000)
-    -b, --batch-size    INT   training batch size (default: 32)
-    -p, --patience      INT   number of epochs for early stopping (default: 300)
-    -v, --visualize           flag for visualizing ground-truth vs prediction plots (default: False)
-```
 
 ## Test
